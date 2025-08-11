@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin - Manage Tests</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #003744;
+    }
+    .form-container {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 500px;
+      margin: 0 auto 20px auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #003744;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005a68;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #003744;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Admin - Manage Tests</h1>
+
+  <div class="form-container">
+    <h2>Create New Test</h2>
+    <label for="testName">Test Name:</label>
+    <input type="text" id="testName" placeholder="Enter test name" required>
+
+    <label for="testDesc">Description:</label>
+    <textarea id="testDesc" rows="3" placeholder="Enter test description"></textarea>
+
+    <button onclick="addTest()">Add Test</button>
+  </div>
+
+  <h2>Available Tests</h2>
+  <table id="testTable">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Test Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Tests will be added here -->
+    </tbody>
+  </table>
+
+  <script>
+    let testList = [];
+    
+    function addTest() {
+      const name = document.getElementById('testName').value.trim();
+      const desc = document.getElementById('testDesc').value.trim();
+
+      if (name === '') {
+        alert("Please enter a test name.");
+        return;
+      }
+
+      testList.push({ name, desc });
+
+      updateTable();
+
+      document.getElementById('testName').value = '';
+      document.getElementById('testDesc').value = '';
+    }
+
+    function updateTable() {
+      const tbody = document.querySelector('#testTable tbody');
+      tbody.innerHTML = '';
+      testList.forEach((test, index) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${test.name}</td>
+            <td>${test.desc}</td>
+          </tr>
+        `;
+      });
+    }
+  </script>
+
+</body>
+</html>
